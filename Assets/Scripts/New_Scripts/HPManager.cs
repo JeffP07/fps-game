@@ -22,6 +22,9 @@ public class HPManager : MonoBehaviour
     void Update()
     {
         int health = player.getHealth();
+        if (health < 5) {
+            sprites[health].SetActive(false);
+        }
         if (health <= 0) {
             sprites[0].SetActive(false);
             pauseManager.isPaused = true;
@@ -29,9 +32,6 @@ public class HPManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             return;
-        }
-        for (int i = 5; i > health; i--) {
-            sprites[i - 1].SetActive(false);
         }
     }
 }

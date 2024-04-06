@@ -13,14 +13,28 @@ public class BallShooting : MonoBehaviour
 	private int shootMode = 0;
 	private float timeSinceShot = 0;
 
-	void Start() 
-	{
+	[SerializeField]
+	private Transform singleShot;
 
+    [SerializeField]
+    private Transform spreadShot;
+
+    [SerializeField]
+    private Transform shotSelector;
+
+    void Start() 
+	{
 		_gun = GameObject.Find("Gun").GetComponent<Gun>();
 	}
 
 	void Update() 
 	{
+		if (shootMode == 0) {
+			shotSelector.position = singleShot.position;
+		}
+		else if(shootMode == 1) {
+			shotSelector.position = spreadShot.position;
+		}
 
 		//check if the gun is ready to fire
 		if (_gun.ReadyToFire())
@@ -36,13 +50,8 @@ public class BallShooting : MonoBehaviour
 					Rigidbody ball_rb = ball.GetComponent<Rigidbody>();
 					ball.name = "ball";
 					// Fire the ball 2 unit forward from the camera
-					//ball.transform.position = transform.TransformPoint(Vector3.forward + Vector3.up * 0.5f);
-					//ball_rb.velocity = transform.TransformDirection(new Vector3(0, 0, Force));
-
-					ball.transform.position = _gun.transform.TransformPoint(Vector3.forward);
-					Vector3 aim = transform.forward * 10f;
-
-					ball_rb.AddForce(transform.TransformDirection(new Vector3(0, 0, Force) - aim));
+					ball.transform.position = transform.TransformPoint(Vector3.forward * 2f);
+					ball_rb.AddForce(transform.TransformDirection(new Vector3(0, 0, Force)));
 					ball_rb.AddTorque(Torque);
 					_gun.Bang();
 					timeSinceShot = 0;
@@ -54,7 +63,7 @@ public class BallShooting : MonoBehaviour
 						Rigidbody ball_rb = ball.GetComponent<Rigidbody>();
 						ball.name = "ball";
 						// Fire the ball 2 unit forward from the camera
-						ball.transform.position = transform.TransformPoint(Vector3.forward * 2f + Vector3.up);
+						ball.transform.position = transform.TransformPoint(Vector3.forward * 2f);
 						//ball_rb.velocity = transform.TransformDirection(new Vector3(0, 0, Force));
 						ball_rb.AddForce(transform.TransformDirection(new Vector3(Random.Range(-0.2f,0.2f), 0, Force)));
 						//ball_rb.AddTorque(Torque);
