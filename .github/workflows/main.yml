@@ -61,9 +61,6 @@ jobs:
         with:
           name: build-WebGL
           path: build/WebGL
-          
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
 
   deployToGitHubPages:
     name: Deploy to GitHub Pages
