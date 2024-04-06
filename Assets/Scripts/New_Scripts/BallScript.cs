@@ -29,7 +29,7 @@ public class BallScript : MonoBehaviour
     {
         if (co.gameObject.tag == "Fire")
         {
-            Destroy(co.gameObject); print("destroy fire ball");
+            Destroy(co.gameObject);
             Destroy(gameObject);
         }
     }
