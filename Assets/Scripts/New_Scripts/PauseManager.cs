@@ -33,9 +33,7 @@ public class PauseManager : MonoBehaviour {
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            isPaused = !isPaused;
-            LockCursor();
-            escMenu.SetActive(!cursorLocked);
+            PauseGame();
         }   
     }
 
@@ -58,5 +56,11 @@ public class PauseManager : MonoBehaviour {
 
     public void Restart() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void PauseGame() {
+        isPaused = !isPaused;
+        LockCursor();
+        escMenu.SetActive(!cursorLocked);
     }
 }
